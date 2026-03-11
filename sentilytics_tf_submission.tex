@@ -2,8 +2,8 @@
 
 \usepackage{epstopdf}
 \usepackage[caption=false]{subfig}
-\usepackage[longnamesfirst,sort]{natbib}
-\bibpunct[, ]{(}{)}{;}{a}{,}{,}
+\usepackage[numbers,sort&compress]{natbib}
+\bibpunct{[}{]}{,}{n}{,}{,}
 \renewcommand\bibfont{\fontsize{10}{12}\selectfont}
 
 \usepackage{float}
@@ -49,17 +49,17 @@ Sentiment Analysis; Emotion Analysis; Natural Language Processing; E-Commerce Re
 
 \section{Introduction}
 
-E-commerce sites are flooded with reviews every day. Statistics indicate that 95% of consumers rely on reviews. One negative comment has the potential to destroy 30 sales. Manually going through all of this is almost impossible.
+E-commerce sites are flooded with reviews every day. Statistics indicate that 95% of consumers rely on reviews \citep{Xu20}. One negative comment has the potential to destroy 30 sales. Manually going through all of this is almost impossible.
 
-Traditional sentiment analysis methods such as VADER, TextBlob, Naive Bayes, and SVM do not capture nuances like context, sarcasm, or mixed sentiments. For example, "The product is great, but delivery was terrible." Such a comment may be classified as positive with a traditional method. Another comment like "Oh sure, waiting three weeks was fantastic!" is an example of sarcasm that is not captured by traditional methods.
+Traditional sentiment analysis methods such as VADER \citep{Hutto14}, TextBlob, Naive Bayes, and SVM do not capture nuances like context, sarcasm, or mixed sentiments. For example, "The product is great, but delivery was terrible." Such a comment may be classified as positive with a traditional method. Another comment like "Oh sure, waiting three weeks was fantastic!" is an example of sarcasm that is not captured by traditional methods.
 
-Sentilytics AI is here to save the day. It uses transformers like DistilBERT to capture context and nuances of language.
+Sentilytics AI is here to save the day. It uses transformers like DistilBERT \citep{Sanh19} to capture context and nuances of language.
 
 \subsection{Motivation and Research Gap}
 
 The old way of sentiment analysis has three major flaws: it doesn’t understand context—sarcasm, negation, and other such nuances are completely ignored; it is too coarse-grained, only giving broad labels like word clouds or entire documents, rather than identifying specific product features to improve; and it requires expensive GPU setups to get results in real-time.
 
-Here’s how Sentilytics AI solves these issues: context-aware sentiment classification via DistilBERT; extracting features via a hybrid technique combining rule-based parsing and neural embeddings, but without the need for annotated data; and achieving this at 1,200+ reviews per minute on a CPU, quantized for deployment.
+Here’s how Sentilytics AI solves these issues: context-aware sentiment classification via DistilBERT \citep{Sanh19}; extracting features via a hybrid technique combining rule-based parsing and neural embeddings, but without the need for annotated data; and achieving this at 1,200+ reviews per minute on a CPU, quantized for deployment.
 
 \subsection{Contributions}
 
@@ -68,9 +68,9 @@ Here’s how Sentilytics AI solves these issues: context-aware sentiment classif
     
     \item \textbf{Hybrid Aspect Extraction:} Combines SpaCy dependency parsing (NOUN-ADJ relationships, acomp patterns) with DistilBERT embeddings for boundary disambiguation. Achieves 89.4\% accuracy without aspect-annotated training data.
     
-    \item \textbf{Optimized Transformer Deployment:} DistilBERT with dynamic 8-bit quantization achieves 92.3\% accuracy with 4× size reduction and 2-3× inference speedup, enabling 1,200+ reviews/minute on CPU.
+    \item \textbf{Optimized Transformer Deployment:} DistilBERT \citep{Sanh19} with dynamic 8-bit quantization achieves 92.3\% accuracy with 4× size reduction and 2-3× inference speedup, enabling 1,200+ reviews/minute on CPU.
     
-    \item \textbf{Domain-Specific Fine-Tuning:} Pre-training on general sentiment data followed by domain adaptation on 300,000+ e-commerce reviews increases accuracy by 7.8\%.
+    \item \textbf{Domain-Specific Fine-Tuning:} Pre-training on general sentiment data followed by domain adaptation on 300,000+ e-commerce reviews \citep{Xu20} increases accuracy by 7.8\%.
     
     \item \textbf{Comprehensive Benchmark Evaluation:} Extensive comparison against VADER (76.8\%), LSTM (84.5\%), and other baselines with error analysis on sarcastic cases.
     
@@ -93,7 +93,7 @@ Sentilytics AI closes these gaps with quantized DistilBERT for efficient computa
 
 \subsection{System Architecture}
 
-Sentilytics AI comprises four components: (1) \textbf{Preprocessing} — removes noise (emojis, URLs, special characters) and tokenizes reviews; (2) \textbf{Sentiment and Emotion Classification} — DistilBERT encoder with 3-class sentiment softmax and 6-class emotion softmax; (3) \textbf{Aspect Extraction} — SpaCy dependency parser identifies NOUN-ADJ pairs and acomp patterns, DistilBERT embeddings disambiguate boundaries; (4) \textbf{Visualization} — Streamlit dashboard presents results.
+Sentilytics AI comprises four components: (1) \textbf{Preprocessing} — removes noise (emojis, URLs, special characters) and tokenizes reviews; (2) \textbf{Sentiment and Emotion Classification} — DistilBERT \citep{Sanh19} encoder with 3-class sentiment softmax and 6-class emotion softmax; (3) \textbf{Aspect Extraction} — SpaCy dependency parser identifies NOUN-ADJ pairs and acomp patterns, DistilBERT \citep{Sanh19} embeddings disambiguate boundaries; (4) \textbf{Visualization} — Streamlit dashboard presents results.
 
 \begin{figure}[H]
     \centering
@@ -104,7 +104,7 @@ Sentilytics AI comprises four components: (1) \textbf{Preprocessing} — removes
 
 \subsection{Model Selection and Training}
 
-\textbf{Dataset and Annotation Strategy.} Sentiment labels (314,660 reviews) were automatically mapped from star ratings: 4-5 stars → Positive (64\%), 3 stars → Neutral (13\%), 1-2 stars → Negative (23\%). Manual validation of 5,000 reviews yielded 91.2\% agreement (Cohen's Kappa: 0.84). Emotion labels (12,000 reviews) used transfer learning from GoEmotions dataset with high-confidence predictions (>0.85). Aspect extraction requires no annotation.
+\textbf{Dataset and Annotation Strategy.} Sentiment labels (314,660 reviews) were automatically mapped from star ratings: 4-5 stars → Positive (64\%), 3 stars → Neutral (13\%), 1-2 stars → Negative (23\%). Manual validation of 5,000 reviews yielded 91.2\% agreement (Cohen's Kappa: 0.84). Emotion labels (12,000 reviews) used transfer learning from GoEmotions dataset \citep{Demszky20} with high-confidence predictions (>0.85). Aspect extraction requires no annotation.
 
 \begin{table}[H]
 \tbl{Dataset Distribution}
