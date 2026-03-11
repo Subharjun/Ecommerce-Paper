@@ -80,9 +80,9 @@ Here’s how Sentilytics AI solves these issues: context-aware sentiment classif
 
 \section{Related Work}
 
-Sentiment analysis evolved from lexicon-based methods (Pang et al., 2002) to machine learning approaches (Naive Bayes, SVM) to deep learning (RNNs, LSTMs). Transformers (Vaswani et al., 2017) and BERT (Devlin et al., 2019) revolutionized NLP by processing entire sentences using self-attention, enabling bidirectional context understanding.
+Sentiment analysis evolved from lexicon-based methods \citep{Pan02} to machine learning approaches (Naive Bayes, SVM) to deep learning (RNNs, LSTMs). Transformers \citep{Vas17} and BERT \citep{Dev19} revolutionized NLP by processing entire sentences using self-attention, enabling bidirectional context understanding.
 
-Aspect-Based Sentiment Analysis (Liu, 2012) connects opinions to specific product features. Recent work uses attention-enhanced LSTMs (Wang et al., 2016) and recurrent attention models (Chen et al., 2017). Emotion detection has moved beyond binary sentiment to fine-grained classification (Mohammad \& Turney, 2013; Alhuzali et al., 2021).
+Aspect-Based Sentiment Analysis \citep{Liu12} connects opinions to specific product features. Recent work uses attention-enhanced LSTMs \citep{Wan16} and recurrent attention models \citep{Che17}. Emotion detection has moved beyond binary sentiment to fine-grained classification \citep{Moh13, Alh21}.
 
 However, existing transformer systems have three major gaps: (1) \textbf{Computational Inefficiency} — BERT-base and RoBERTa require GPU infrastructure, making real-time inference expensive; (2) \textbf{Lack of Aspect-Level Granularity} — most systems offer only document-level classifications and require expensive aspect-annotated data; (3) \textbf{Limited Usability} — academic models lack business-oriented interfaces and interpretability.
 
@@ -227,65 +227,8 @@ Informed consent not needed as all data is publicly available.
 No AI tools were used in writing this manuscript.
 
 
-\begin{thebibliography}{99}
-
-\bibitem[Pang et~al.(2002)]{Pan02}
-Pang, B., Lee, L., and Vaithyanathan, S. (2002). Thumbs up? Sentiment classification using machine learning techniques. In \emph{Proceedings of EMNLP}, pp. 79-86.
-
-\bibitem[Turney(2002)]{Tur02}
-Turney, P. (2002). Thumbs up or thumbs down? Semantic orientation applied to unsupervised classification of reviews. In \emph{Proceedings of ACL}, pp. 417-424.
-
-\bibitem[Hu and Liu(2004)]{Hu04}
-Hu, M. and Liu, B. (2004). Mining and summarizing customer reviews. In \emph{Proceedings of ACM SIGKDD}, pp. 168-177.
-
-\bibitem[Pang and Lee(2008)]{Pan08}
-Pang, B. and Lee, L. (2008). Opinion mining and sentiment analysis. \emph{Foundations and Trends in Information Retrieval}, vol. 2, no. 1-2, pp. 1-135.
-
-\bibitem[Kim(2014)]{Kim14}
-Kim, Y. (2014). Convolutional neural networks for sentence classification. In \emph{Proceedings of EMNLP}, pp. 1746-1751.
-
-\bibitem[Tang et~al.(2015)]{Tan15}
-Tang, D., Wei, F., Yang, N., et al. (2015). Learning sentiment-specific word embedding for Twitter sentiment classification. In \emph{Proceedings of ACL}, pp. 1555-1565.
-
-\bibitem[Hochreiter and Schmidhuber(1997)]{Hoc97}
-Hochreiter, S. and Schmidhuber, J. (1997). Long short-term memory. \emph{Neural Computation}, vol. 9, no. 8, pp. 1735-1780.
-
-\bibitem[Vaswani et~al.(2017)]{Vas17}
-Vaswani, A. et al. (2017). Attention is All You Need. In \emph{Advances in Neural Information Processing Systems}, vol. 30, pp. 5998-6008.
-
-\bibitem[Devlin et~al.(2019)]{Dev19}
-Devlin, J., Chang, M., Lee, K., and Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In \emph{Proceedings of NAACL-HLT}, pp. 4171-4186.
-
-\bibitem[He et~al.(2017)]{He17}
-He, X., Liao, L., Zhang, H., et al. (2017). Neural collaborative filtering. In \emph{Proceedings of WWW}, pp. 173-182.
-
-\bibitem[Liu(2012)]{Liu12}
-Liu, B. (2012). Sentiment analysis and opinion mining. \emph{Synthesis Lectures on Human Language Technologies}, vol. 5, no. 1, pp. 1-167.
-
-\bibitem[Pontiki et~al.(2014)]{Pon14}
-Pontiki, M., Galanis, D., Pavlopoulos, J., et al. (2014). SemEval-2014 Task 4: Aspect based sentiment analysis. In \emph{Proceedings of SemEval}, pp. 27-35.
-
-\bibitem[Wang et~al.(2016)]{Wan16}
-Wang, Y., Huang, M., Zhu, X., and L. Zhao (2016). Attention-based LSTM for aspect-level sentiment classification. In \emph{Proceedings of EMNLP}, pp. 606-615.
-
-\bibitem[Chen et~al.(2017)]{Che17}
-Chen, P., Sun, Z., Bing, L., and W. Yang (2017). Recurrent attention network on memory for aspect sentiment analysis. In \emph{Proceedings of EMNLP}, pp. 452-461.
-
-\bibitem[Mohammad and Turney(2013)]{Moh13}
-Mohammad, S. and Turney, P. (2013). Crowdsourcing a word-emotion association lexicon. \emph{Computational Intelligence}, vol. 29, no. 3, pp. 436-465.
-
-\bibitem[Alhuzali et~al.(2021)]{Alh21}
-Alhuzali, H., Ananiadou, S., and R. Batista-Navarro (2021). Emotion analysis in social media using transfer learning. \emph{IEEE Access}, vol. 9, pp. 91769-91783.
-
-\bibitem[Felbo et~al.(2017)]{Fel17}
-Felbo, B., Mislove, A., Søgaard, A., et al. (2017). Using millions of emoji occurrences to learn any-domain representations for detecting sentiment, emotion and sarcasm. In \emph{Proceedings of EMNLP}, pp. 1615-1625.
-
-\bibitem[Abdul-Mageed and Ungar(2017)]{Abd17}
-Abdul-Mageed, M. and L. Ungar (2017). EmoNet: Fine-grained emotion detection with gated recurrent neural networks. In \emph{Proceedings of ACL}, pp. 718-728.
-
-\bibitem[Xu et~al.(2020)]{Xu20}
-Xu, H., Liu, B., Shu, L., and P. Yu (2020). Explainable product search with a dynamic relation embedding model. \emph{ACM Transactions on Information Systems}, vol. 38, no. 1, pp. 1-29.
-
-\end{thebibliography}
+\nocite{*}
+\bibliographystyle{plainnat}
+\bibliography{references}
 
 \end{document}
