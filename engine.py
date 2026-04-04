@@ -16,9 +16,6 @@ Architecture: Groq LLM (primary) + DistilBERT (fallback) + SpaCy (aspects)
 
 import os
 import json
-import torch
-from transformers import pipeline
-import spacy
 from authenticity import AuthenticityDetector
 
 # ── Load environment variables (.env) ─────────────────────────────────────────
@@ -87,27 +84,12 @@ class SentilyticsEngine:
             except Exception as e:
                 print(f"⚠️  Groq init failed ({e}) — will use DistilBERT fallback.")
 
-        # ── DistilBERT fallback pipelines ──────────────────────────────────────
-        print("Loading DistilBERT sentiment model (fallback)…")
-        self.sentiment_pipe = pipeline(
-            "sentiment-analysis",
-            model="distilbert-base-uncased-finetuned-sst-2-english"
-        )
+        # ── DistilBERT fallback pipelines (Lazy Initialisation) ─────────────────
+        self.sentiment_pipe = None
+        self.emotion_pipe = None
 
-        print("Loading DistilBERT emotion model (fallback)…")
-        self.emotion_pipe = pipeline(
-            "text-classification",
-            model="bhadresh-savani/distilbert-base-uncased-emotion",
-            top_k=None
-        )
-
-        # ── SpaCy aspect extractor (always active) ────────────────────────────
-        print("Loading SpaCy NLP for dependency-parsed aspect extraction…")
-        try:
-            self.nlp = spacy.load("en_core_web_sm")
-        except OSError:
-            os.system("python -m spacy download en_core_web_sm")
-            self.nlp = spacy.load("en_core_web_sm")
+        # ── SpaCy aspect extractor (Lazy Initialisation) ────────────────────
+        self.nlp = None
 
         # ── Trust Score weights ────────────────────────────────────────────────
         self.trust_weights = {
@@ -186,6 +168,15 @@ class SentilyticsEngine:
     # FALLBACK PATH — DistilBERT transformers
     # ══════════════════════════════════════════════════════════════════════════
     def _analyze_sentiment_distilbert(self, text: str):
+        if self.sentiment_pipe is None:
+            from transformers import pipeline
+            import torch
+            print("📦 Initialising fallback sentiment model...")
+            self.sentiment_pipe = pipeline(
+                "sentiment-analysis",
+                model="distilbert-base-uncased-finetuned-sst-2-english",
+                device=-1  # Force CPU
+            )
         result = self.sentiment_pipe(text[:512])[0]
         label  = result["label"].title()
         score  = result["score"]
@@ -194,6 +185,16 @@ class SentilyticsEngine:
         return label, score
 
     def _analyze_emotions_distilbert(self, text: str):
+        if self.emotion_pipe is None:
+            from transformers import pipeline
+            import torch
+            print("📦 Initialising fallback emotion model...")
+            self.emotion_pipe = pipeline(
+                "text-classification",
+                model="bhadresh-savani/distilbert-base-uncased-emotion",
+                top_k=None,
+                device=-1  # Force CPU
+            )
         raw = self.emotion_pipe(text[:512])[0]
         label_map = {
             "joy":      "Joy",
@@ -218,6 +219,15 @@ class SentilyticsEngine:
           1. SpaCy dependency parsing for NOUN-ADJ pairs and acomp patterns.
           2. Merged with Groq-extracted aspects (if available) with deduplication.
         """
+        if self.nlp is None:
+            import spacy
+            try:
+                self.nlp = spacy.load("en_core_web_sm")
+            except OSError:
+                # Fallback to downloading or empty
+                print("⚠️ SpaCy model not found. Aspect extraction disabled.")
+                return []
+
         doc    = self.nlp(text)
         aspects = []
         seen    = set()
