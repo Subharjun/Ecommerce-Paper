@@ -1,0 +1,28 @@
+# Environment variables — never commit API keys
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Model weights
+*.bin
+*.pt
+*.safetensors
+sentilytics_fine_tuned/
+results/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,29 @@
+Sentilytics AI - Hybrid Edge-Cloud Architecture Flowchart
+
+1. Data Ingestion
+   - Unstructured text (Amazon/E-commerce Reviews).
+   - Input generated via User Interface or Batch CSV dataset.
+
+2. Local Preprocessing Engine (Edge Device)
+   - Text Cleaning & Noise Reduction.
+   - SpaCy Dependency Parsing (Isolating Nouns as "Aspects" and Adjectives as "Sentiments").
+
+3. Hybrid Inference Routing (Core Logic)
+   - Branch A: Local Edge Fallback (Zero Cost, High Privacy)
+     - Hugging Face DistilBERT local transformer executes offline Aspect-Based Sentiment Analysis.
+   - Branch B: Cloud Processing (Maximum Contextual Accuracy)
+     - Groq Fast Inference API triggers Llama-3 for complex linguistic semantics.
+
+4. Deterministic Authenticity Scoring (Parallel Local Process)
+   - Mathematical 6-Signal Linguistic Algorithm calculates Bot vs. Human probability using:
+     * CAPS Density Control
+     * Exclamation Mark Normalization
+     * Lexical Diversity (Spam vocabulary check)
+     * Review Length Anomalies
+
+5. Data Aggregation & Output Rendering
+   - Streamlit Glassmorphism Dashboard Engine.
+   - Generates and visualizes:
+     * Specific Aspect-to-Emotion Links (e.g., Battery -> Sadness).
+     * Exact Authenticity Score (0-100 rating).
+     * Temporal Sentiment Drift (SDS) line charts comparing Product Rating Cohorts.
